@@ -1,0 +1,36 @@
+---
+# vars file for backup_files
+
+restic_create_cron: true
+base_dir: ''
+repo_location: ''
+repo_password: ''
+aws_access_key: ''
+aws_secret_access_key: ''
+
+.repo_defaults: &repo_defaults
+  aws_access_key: '{{ aws_access_key }}'
+  aws_secret_access_key: '{{ aws_secret_access_key }}'
+  password: '{{ repo_password }}'
+  init: true
+
+restic_repos:
+  www:
+    <<: *repo_defaults
+    location: '{{ repo_location }}/www'
+
+.defaults: &defaults
+  scheduled: true
+  keep_yearly: 1
+
+restic_backups:
+  www:
+    <<: *defaults
+    name: www
+    repo: www
+    schedule_hour: 1
+    src: '{{ base_dir }}/'
+    exclude:
+      exclude_cache: false
+      exclude:
+        - '{{ base_dir }}/**/*.log'

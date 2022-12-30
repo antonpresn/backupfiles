@@ -1,0 +1,16 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: crontab
+      shell: |
+        crontab -l
+      register: crontab_output
+    - debug: var=crontab_output.stdout_lines
+    - name: crontab check
+      assert:
+        that: crontab_output.stdout_lines | count == 1*2
+    - name: crontab exact job check
+      assert:
+        that: '"restic/backup-www.sh" in "{{ crontab_output.stdout_lines | join(" ") }}"'

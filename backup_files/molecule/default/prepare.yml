@@ -1,0 +1,11 @@
+---
+- name: Prepare
+  hosts: all
+
+  tasks:
+    - ansible.builtin.yum:
+        name:
+          - bzip2
+          - cronie
+          - sudo
+        state: present

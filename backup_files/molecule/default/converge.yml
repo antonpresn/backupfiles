@@ -1,0 +1,12 @@
+---
+- name: Converge
+  hosts: all
+
+  tasks:
+    - name: "Include backup-files"
+      vars:
+        base_dir: '/var/www/test'
+        repo_location: '/srv/restic-test'
+        repo_password: 'test'
+      include_role:
+        name: backup_files

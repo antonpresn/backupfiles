@@ -1,0 +1,8 @@
+galaxy_info:
+  role_name: backup_files
+  namespace: learn
+  author: Anton
+  description: backup files with restic
+
+dependencies:
+  - role: arillso.restic
